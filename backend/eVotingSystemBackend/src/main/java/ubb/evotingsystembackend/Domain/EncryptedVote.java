@@ -1,9 +1,6 @@
 package ubb.evotingsystembackend.Domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class EncryptedVote {
@@ -11,16 +8,17 @@ public class EncryptedVote {
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Integer id;
 
-    private byte[] encryptedVote;
+    @Column(length = 2048)
+    private String encryptedVote;
 
     public EncryptedVote() {
     }
 
-    public EncryptedVote(byte[] encryptedVote) {
+    public EncryptedVote(String encryptedVote) {
         this.encryptedVote = encryptedVote;
     }
 
-    public byte[] getEncryptedVote() {
+    public String getEncryptedVote() {
         return encryptedVote;
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.*;
 import java.util.Arrays;
+import java.util.Base64;
 
 @Service
 public class CertificateService {
@@ -35,15 +36,17 @@ public class CertificateService {
         }
     }
 
-    public boolean verify(byte[] vote, byte[] signedVote, PublicKey publicKey) {
+    public boolean verify(String vote, String signedVote, PublicKey publicKey) {
         try {
             Signature signature = Signature.getInstance(instance);
 
             signature.initVerify(publicKey);
-            signature.update(vote);
 
+            byte[] encryptedVote = Base64.getDecoder().decode(vote);
+            signature.update(encryptedVote);
 
-            return signature.verify(signedVote);
+            byte[] signatureVote = Base64.getDecoder().decode(signedVote);
+            return signature.verify(signatureVote);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new IllegalStateException(e);

@@ -8,12 +8,12 @@ public class CitizenDTO {
     private String lastName;
 
     private String email;
-    private PrivateKey CAPrivK;
+    private String CAPrivK;
 
     public CitizenDTO() {
     }
 
-    public CitizenDTO(Integer id, String firstName, String lastName, String email, PrivateKey CAPrivK) {
+    public CitizenDTO(Integer id, String firstName, String lastName, String email, String CAPrivK) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -21,11 +21,11 @@ public class CitizenDTO {
         this.CAPrivK = CAPrivK;
     }
 
-    public PrivateKey getCAPrivK() {
+    public String getCAPrivK() {
         return CAPrivK;
     }
 
-    public void setCAPrivK(PrivateKey CAPrivK) {
+    public void setCAPrivK(String CAPrivK) {
         this.CAPrivK = CAPrivK;
     }
 

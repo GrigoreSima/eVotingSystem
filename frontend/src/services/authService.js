@@ -7,6 +7,8 @@ export const loginCitizen = async (email, password) => {
         const response = await axios.post(`${API_URL}/login`, {
             email,
             password
+        }, {
+            headers: {'Access-Control-Allow-Origin': '*'}
         });
         return response.data; // Returnează CitizenDTO
     } catch (error) {

@@ -52,14 +52,14 @@ public class CitizenService {
         return new CitizenDTO();
     }
 
-    public void vote(byte[] encryptedVote, byte[] signedVote, Integer citizenID) {
+    public void vote(String encryptedVote, String signedVote, Integer citizenID) {
 
         citizensRepository.findById(citizenID).ifPresent(citizen -> {
             if (votersRepository.findByCitizenId(citizenID).isPresent()) {
                 return;
             }
 
-            if (!certificateService.verify(encryptedVote, signedVote, citizen.getCAPubK())) {
+            if (certificateService.verify(encryptedVote, signedVote, citizen.getCAPubK())) {
                 return;
             }
 
@@ -114,12 +114,13 @@ public class CitizenService {
     public List<Candidate> createCandidates() {
         List<Candidate> candidates = new ArrayList<>();
 
-        candidates.add(new Candidate("Sarah", "Connor"));
-        candidates.add(new Candidate("John", "Wick"));
-        candidates.add(new Candidate("Ellen", "Ripley"));
-        candidates.add(new Candidate("Tony", "Stark"));
-        candidates.add(new Candidate("Bruce", "Wayne"));
-        candidates.add(new Candidate("Clark", "Kent"));
+        candidates.add(new Candidate("Grigore", "Sima"));
+        candidates.add(new Candidate("Andreea-Georgiana", "Szabo"));
+        candidates.add(new Candidate("Ilie", "Bolojan"));
+        candidates.add(new Candidate("George", "Simion"));
+        candidates.add(new Candidate("Nicusor", "Dan"));
+        candidates.add(new Candidate("Calin", "Georgescu"));
+        candidates.add(new Candidate("Elena-Valerica", "Lasconi"));
 
         return candidates;
     }

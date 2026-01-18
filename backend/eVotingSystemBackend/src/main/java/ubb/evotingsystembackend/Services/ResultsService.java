@@ -25,7 +25,7 @@ public class ResultsService {
         this.candidatesRepository = candidatesRepository;
 
         this.results = new HashMap<>();
-        candidatesRepository.findAll().forEach((candidate) -> results.put(candidate.getId(), 0));
+
     }
 
     public void decryptVotes() {
@@ -33,11 +33,14 @@ public class ResultsService {
             String vote = encryptionService.decrypt(encryptedVote.getEncryptedVote());
             System.out.println(vote);
 
-            results.compute(Integer.parseInt(vote), (k, partialResult) -> partialResult + 1);
+            results.compute(Integer.parseInt(vote), (k, v) -> v + 1);
         });
     }
 
     public Map<Integer, Integer> getResults() {
+        results.clear();
+        candidatesRepository.findAll().forEach((candidate) -> results.put(candidate.getId(), 0));
+        System.out.println(results);
         decryptVotes();
         return results;
     }

@@ -157,10 +157,10 @@ export default function VerifyVote() {
 
                 try {
                     // Execute the cryptographic protocol
-                    const securePayload = finalizeVote(
+                    const securePayload = await finalizeVote(
                         candidate.id,
                         systemPublicKey, // System's RSA-2048 Public Key
-                        voter.signingKey, // Voter's Private Key
+                        voter.CAPrivK, // Voter's Private Key
                         voter.id          // Voter's ID
                     );
 

@@ -154,6 +154,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { loginCitizen, getSystemPublicKey } from "../services/authService";
 import "./design/Login.css";
+import {getCandidates} from "../services/voteService.js";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -180,6 +181,7 @@ export default function Login() {
             const candidatesList = await getCandidates();
 
             // 4. Salvăm totul în Contextul de Autentificare
+            console.log(citizenDto);
             setVoter(citizenDto);
             setSystemPublicKey(publicKey);
             // Presupunem că ai o funcție setCandidates în Context

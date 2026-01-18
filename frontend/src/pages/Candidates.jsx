@@ -163,9 +163,7 @@ export default function Candidates() {
 
     const getProfileImage = (firstName, id) => {
 
-        const isFemale = firstName.toLowerCase().endsWith('a') ||
-            firstName.toLowerCase() === 'carmen' ||
-            firstName.toLowerCase() === 'beatrice';
+        const isFemale = firstName.toLowerCase().endsWith('a');
 
         const gender = isFemale ? "female" : "male";
 
@@ -206,7 +204,7 @@ export default function Candidates() {
                             </div>
                             <div className="card-info">
                                 <h3>{c.firstName} {c.lastName}</h3>
-                                <p className="candidate-role">Official Candidate</p>
+                                {/*<p className="candidate-role">Official Candidate</p>*/}
                                 <p className="candidate-id">ID: #{c.id}</p>
                             </div>
                             <button className="vote-btn" onClick={() => handleVote(c)}>
@@ -222,7 +220,7 @@ export default function Candidates() {
                     </button>
 
                     <div className="voter-identity-display">
-                        <span className="voter-name-label">Voter: <strong>{voter?.name || "User"}</strong></span>
+                        <span className="voter-name-label">Voter: <strong>{voter?.firstName + ' ' + voter?.lastName || "User"}</strong></span>
                         <div className="session-info">Voter ID: {voter?.id || "N/A"}</div>
                     </div>
                 </footer>

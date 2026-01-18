@@ -332,8 +332,8 @@ export default function Dashboard() {
                 setAllCandidates(candidatesRes.data);
 
                 const countsRes = await axios.get("http://localhost:8080/presentation/counts");
-                setTotalCitizens(countsRes.data.totalCitizens);
-                setVoterCount(countsRes.data.currentVotes);
+                setTotalCitizens(countsRes.data.total);
+                setVoterCount(countsRes.data.count);
                 prevVoterCountRef.current = countsRes.data.currentVotes;
             } catch (err) {
                 console.error("Setup Error:", err);
