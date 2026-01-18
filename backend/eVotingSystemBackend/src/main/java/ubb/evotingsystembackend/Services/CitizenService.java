@@ -54,15 +54,18 @@ public class CitizenService {
 
     public void vote(byte[] encryptedVote, byte[] signedVote, Integer citizenID) {
 
-        // TODO: get citizen | verify if voted
+        citizensRepository.findById(citizenID).ifPresent(citizen -> {
+            if (votersRepository.findByCitizenId(citizenID).isPresent()) {
+                return;
+            }
 
+            if (!certificateService.verify(encryptedVote, signedVote, citizen.getCAPubK())) {
+                return;
+            }
 
-        if (!certificateService.verify(encryptedVote, signedVote, citizen.getCAPubK())) {
-            return;
-        }
-
-        votersRepository.save(new Voter(citizen));
-        encryptedVotesRepository.save(new EncryptedVote(encryptedVote));
+            votersRepository.save(new Voter(citizen));
+            encryptedVotesRepository.save(new EncryptedVote(encryptedVote));
+        });
     }
 
     public void initiate() {
